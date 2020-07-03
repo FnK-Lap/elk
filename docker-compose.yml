@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  elastic:
+    container_name: elastic
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+    volumes: 
+      - ./data:/usr/share/elasticsearch/data
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    depends_on:
+      - elastic
+    ports:
+      - 5601:5601
+    links:
+      - elastic
+    environment:
+      ELASTICSEARCH_URL: http://elastic:9200
+      ELASTICSEARCH_HOSTS: http://elastic:9200
+
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.8.0
+    expose:
+      - "12201"
+    ports:
+      - "12201:12201"
+      - "12201:12201/udp"
+    links:
+      - elastic
+    tty: true
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    environment:
+      XPACK_MONITORING_ENABLED: "false"

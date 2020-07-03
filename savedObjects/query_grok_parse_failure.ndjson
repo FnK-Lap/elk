@@ -1,0 +1,2 @@
+{"attributes":{"description":"List of Grok parse failure. Add other filters in logstash.conf","filters":[],"query":{"language":"kuery","query":"tags.keyword : \"_grokparsefailure\" "},"title":"Grok Parse Fail"},"id":"Grok Parse Fail","references":[],"type":"query","updated_at":"2020-07-03T14:03:24.174Z","version":"WzE5LDFd"}
+{"exportedCount":1,"missingRefCount":0,"missingReferences":[]}
