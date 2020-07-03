@@ -23,8 +23,10 @@ Ajouter la partie `logging` sur les contaier dans le `docker-compose.yml`
 ### Saved Objects
 
 1. Types :
-	- `query_*` : Type Query
+	- `q_*` : Type Query
+	- `v_*` : Type Visualization
 
 2. Saved Objects :
 
-- `query_grok_parse_failure.ndjson` : Liste de toutes less erreurs de parsing Grok. Ajouter des filtres correspondant dans le fichier `./logstash.conf`
+- `q_grok_parse_failure.ndjson` : Liste de toutes less erreurs de parsing Grok. Ajouter des filtres correspondant dans le fichier `./logstash.conf`
+- `v_http_call.ndjson` : Liste des dernier call HTTP
