@@ -30,3 +30,22 @@ Ajouter la partie `logging` sur les contaier dans le `docker-compose.yml`
 
 - `q_grok_parse_failure.ndjson` : Liste de toutes less erreurs de parsing Grok. Ajouter des filtres correspondant dans le fichier `./logstash.conf`
 - `v_http_call.ndjson` : Liste des dernier call HTTP
+
+### Scripted Fields
+
+1. Truncate
+
+Transform `Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException` to `NotFoundHttpException`
+
+```
+if (doc['json.type.keyword'].size() == 0) {
+    return '';    
+}
+
+def dom = doc['json.type.keyword'].value;
+
+String[] plop = /\\/.split(dom);
+List ss = Arrays.asList(plop);
+String l2 = ss[-1];
+return l2;
+```
